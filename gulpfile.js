@@ -1,11 +1,13 @@
 var gulp = require('gulp');
 var gutil = require('gulp-util');
-var bower = require('bower');
+//var bower = require('bower');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
+var jshint = require('gulp-jshint');
+var stylish = require('jshint-stylish');
 
 var paths = {
   sass: ['./scss/**/*.scss']
@@ -48,4 +50,10 @@ gulp.task('git-check', function(done) {
     process.exit(1);
   }
   done();
+});
+
+gulp.task('jshint', function() {
+  return gulp.src('www/js/**/*.js')
+  .pipe(jshint())
+  .pipe(jshint.reporter(stylish));
 });
